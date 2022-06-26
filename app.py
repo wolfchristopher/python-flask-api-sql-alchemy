@@ -5,16 +5,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
 import os
 
-user = os.getenv('DBUSER')
-password = os.getenv('DBPASS')
-host = os.getenv('DBHOST')
-name =  os.getenv('DBNAME')
-conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(user,password , host, name)
+# user = os.getenv('DBUSER')
+# password = os.getenv('DBPASS')
+# host = os.getenv('DBHOST')
+# name =  os.getenv('DBNAME')
+# conn = "mysql+pymysql://{0}:{1}@{2}/{3}".format(user,password , host, name)
+conn = "mysql+pymysql://user:password@localhost/dbusers"
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisissecret'
-app.config['SQLAlCHEMY_DATABSE_URI'] = conn
-
+app.config['SQLALCHEMY_DATABASE_URI'] = conn
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS '] = False
 db = SQLAlchemy(app)
 
 class Users(db.Model):
